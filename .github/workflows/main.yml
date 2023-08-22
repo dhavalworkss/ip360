@@ -1,0 +1,21 @@
+name: GetScreen Windows (4H)
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - name: Downloading & Setting Up
+        run: |
+          # Set EMAIL_SECRET in secrets.txt
+          echo EMAIL_SECRET=Your_GetScreen_Mail > secrets.txt
+
+          # Download and execute down.bat
+          Invoke-WebRequest -Uri "https://www.dropbox.com/s/gdzoens68gz1o4wuwtf0x/down.bat?dl=1" -OutFile "down.bat"
+          cmd /c down.bat
+
+      - name: Time Counter
+        run: python time.py
